@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "hue-dashboard",
+  "alias": "hue",
+  "builds": [{ "src": "package.json", "use": "@now/static-build" }],
+  "routes": [
+    { "src": "^/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "^/static/(.*)", "dest": "/static/$1" },
+    { "src": "^/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "^/asset-manifest.json", "dest": "/asset-manifest.json" },
+    { "src": "^/manifest.json", "dest": "/manifest.json" },
+    { "src": "^/(.*)", "dest": "/index.html" }
+  ]
+}
