@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
 import Slider, { SliderProps } from '@material-ui/lab/Slider'
 import * as cc from 'color-convert'
+import deepEqual from 'fast-deep-equal'
 import React from 'react'
 import { Light, LightPatch } from 'src/services/hue'
 
@@ -35,18 +36,9 @@ type Props = WithStyles<typeof styles> & {
   onChange: (light: LightPatch) => void
 }
 
-class LightView extends React.Component<Props, Light['state']> {
-  public constructor(props: Props) {
-    super(props)
-    const {
-      light: { state }
-    } = this.props
-    this.state = state
-  }
-
+class LightView extends React.Component<Props> {
   public render(): React.ReactNode {
     const { classes, light } = this.props
-    const state = this.state
     return (
       <Paper square={true}>
         <div
@@ -58,7 +50,7 @@ class LightView extends React.Component<Props, Light['state']> {
           <Typography className={classes.name} color="default" variant="h6">
             #{light.id}
           </Typography>
-          <Switch checked={state.on} onChange={this.changeSwitch} />
+          <Switch checked={light.state.on} onChange={this.changeSwitch} />
         </Grid>
 
         <Table>
@@ -75,7 +67,7 @@ class LightView extends React.Component<Props, Light['state']> {
                   max={65535}
                   min={0}
                   step={1}
-                  value={state.hue}
+                  value={light.state.hue}
                   onChange={this.changeHue}
                 />
               </TableCell>
@@ -92,7 +84,7 @@ class LightView extends React.Component<Props, Light['state']> {
                   max={255}
                   min={0}
                   step={1}
-                  value={state.saturation}
+                  value={light.state.saturation}
                   onChange={this.changeSaturation}
                 />
               </TableCell>
@@ -109,7 +101,7 @@ class LightView extends React.Component<Props, Light['state']> {
                   max={255}
                   min={0}
                   step={1}
-                  value={state.brightness}
+                  value={light.state.brightness}
                   onChange={this.changeBrightness}
                 />
               </TableCell>
@@ -122,30 +114,26 @@ class LightView extends React.Component<Props, Light['state']> {
 
   private changeSwitch: SwitchProps['onChange'] = (_, on) => {
     const { light, onChange } = this.props
-    this.setState({ on })
     onChange({ id: light.id, state: { on } })
   }
 
   private changeHue: SliderProps['onChange'] = (_, hue) => {
     const { light, onChange } = this.props
-    this.setState({ hue })
     onChange({ id: light.id, state: { hue } })
   }
 
   private changeSaturation: SliderProps['onChange'] = (_, saturation) => {
     const { light, onChange } = this.props
-    this.setState({ saturation })
     onChange({ id: light.id, state: { saturation } })
   }
 
   private changeBrightness: SliderProps['onChange'] = (_, brightness) => {
     const { light, onChange } = this.props
-    this.setState({ brightness })
     onChange({ id: light.id, state: { brightness } })
   }
 }
 
-export default withStyles(styles)(LightView)
+export default withStyles(styles)(React.memo(LightView, deepEqual))
 
 function toRGBString(hsv: Light['state']): string {
   const { hue, saturation, brightness } = hsv

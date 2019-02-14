@@ -40,6 +40,12 @@ function* handleControlLight(
     return
   }
 
+  const uncommited = {
+    ...light,
+    state: { ...light.state, ...params.state }
+  }
+  yield put(controlLight.done({ params, result: uncommited }))
+
   yield delay(throttle)
 
   try {

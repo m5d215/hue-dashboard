@@ -1,4 +1,5 @@
 import Grid from '@material-ui/core/Grid'
+import deepEqual from 'fast-deep-equal'
 import React from 'react'
 import LightView from 'src/containers/LightView'
 import { Light } from 'src/services/hue'
@@ -7,7 +8,7 @@ interface Props {
   lights: Light[]
 }
 
-export default function LightList(props: Props): JSX.Element {
+function LightList(props: Props): JSX.Element {
   const { lights } = props
   return (
     <Grid container={true} spacing={8}>
@@ -19,3 +20,5 @@ export default function LightList(props: Props): JSX.Element {
     </Grid>
   )
 }
+
+export default React.memo(LightList, deepEqual)
