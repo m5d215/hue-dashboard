@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "hue-dashboard",
-  "alias": "hue",
+  "alias": "hue-dashboard",
   "builds": [{ "src": "package.json", "use": "@now/static-build" }],
   "routes": [
     { "src": "^/assets/(.*)", "dest": "/assets/$1" },
