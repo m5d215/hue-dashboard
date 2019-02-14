@@ -1,0 +1,11 @@
+.git
+build
+node_modules
+
+.dockerignore
+.editorconfig
+.gitignore
+Dockerfile
+now.json
+README.md
+screenshot.png

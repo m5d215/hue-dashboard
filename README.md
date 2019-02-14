@@ -22,6 +22,9 @@ If the bridge does not provide HTTPS, start hue-dashboard locally.
 yarn install
 yarn build
 yarn serve
+
+# or use Docker
+docker container run -d -p 80:80 m5d215/hue-dashboard
 ```
 
 ```text
