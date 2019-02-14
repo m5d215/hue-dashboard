@@ -20,9 +20,10 @@ If the bridge does not provide HTTPS, start hue-dashboard locally.
 
 ```sh
 yarn install
-yarn start
+yarn build
+yarn serve
 ```
 
 ```text
-http://127.0.0.1:3000?server=http://192.168.1.3&username=Wh7zj8JORgxBcH83BamICvgnCHihUsiGLkAYW3fC
+http://127.0.0.1?server=http://192.168.1.3&username=Wh7zj8JORgxBcH83BamICvgnCHihUsiGLkAYW3fC
 ```
