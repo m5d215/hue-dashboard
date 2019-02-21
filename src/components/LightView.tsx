@@ -64,6 +64,7 @@ class LightView extends React.Component<Props> {
               <TableCell>
                 <Slider
                   className={classes.columnContent}
+                  disabled={!light.state.on}
                   max={65535}
                   min={0}
                   step={1}
@@ -81,6 +82,7 @@ class LightView extends React.Component<Props> {
               <TableCell>
                 <Slider
                   className={classes.columnContent}
+                  disabled={!light.state.on}
                   max={255}
                   min={0}
                   step={1}
@@ -98,6 +100,7 @@ class LightView extends React.Component<Props> {
               <TableCell>
                 <Slider
                   className={classes.columnContent}
+                  disabled={!light.state.on}
                   max={255}
                   min={0}
                   step={1}
