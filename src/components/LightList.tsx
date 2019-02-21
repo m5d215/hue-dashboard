@@ -1,8 +1,8 @@
 import Grid from '@material-ui/core/Grid'
 import deepEqual from 'fast-deep-equal'
 import React from 'react'
-import LightView from 'src/containers/LightView'
-import { Light } from 'src/services/hue'
+import LightView from '../containers/LightView'
+import { Light } from '../services/hue'
 
 interface Props {
   lights: Light[]

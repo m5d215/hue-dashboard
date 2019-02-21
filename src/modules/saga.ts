@@ -1,10 +1,10 @@
 import { SagaIterator } from 'redux-saga'
 import { call, put, select } from 'redux-saga/effects'
-import { controlLight, getLights } from 'src/modules/actions'
-import { delay, takeLatestFSA } from 'src/modules/saga-helper'
-import State from 'src/modules/state'
-import * as hue from 'src/services/hue'
 import { parse } from 'url'
+import * as hue from '../services/hue'
+import { controlLight, getLights } from './actions'
+import { delay, takeLatestFSA } from './saga-helper'
+import State from './state'
 
 const query = parse(location.href, true).query
 const server = `${query.server || 'http://127.0.0.1'}`

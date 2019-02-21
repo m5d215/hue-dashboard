@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import LightList from 'src/components/LightList'
-import State from 'src/modules/state'
+import LightList from '../components/LightList'
+import State from '../modules/state'
 
 function mapStateToProps(state: State) {
   const { lights } = state

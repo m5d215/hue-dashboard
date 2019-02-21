@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import LightView from 'src/components/LightView'
-import { controlLight } from 'src/modules/actions'
+import LightView from '../components/LightView'
+import { controlLight } from '../modules/actions'
 
 export default connect(
   null,

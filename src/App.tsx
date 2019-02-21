@@ -1,7 +1,7 @@
 import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core'
 import React from 'react'
-import LightList from 'src/containers/LightList'
-import Menu from 'src/containers/Menu'
+import LightList from './containers/LightList'
+import Menu from './containers/Menu'
 
 const styles = (theme: Theme) =>
   createStyles({

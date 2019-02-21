@@ -2,10 +2,12 @@ import { MuiThemeProvider } from '@material-ui/core'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import App from 'src/App'
-import { getLights } from 'src/modules/actions'
-import store from 'src/store'
-import theme from 'src/theme'
+import App from './App'
+import './index.css'
+import { getLights } from './modules/actions'
+import * as serviceWorker from './serviceWorker'
+import store from './store'
+import theme from './theme'
 
 store.dispatch(getLights.started())
 
@@ -15,5 +17,10 @@ ReactDOM.render(
       <App />
     </MuiThemeProvider>
   </Provider>,
-  document.getElementById('root') as HTMLElement
+  document.getElementById('root')
 )
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister()

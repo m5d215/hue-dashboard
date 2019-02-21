@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import Menu from 'src/components/Menu'
-import { getLights } from 'src/modules/actions'
+import Menu from '../components/Menu'
+import { getLights } from '../modules/actions'
 
 export default connect(
   null,

@@ -1,6 +1,6 @@
-import { controlLight, getLights } from 'src/modules/actions'
-import State from 'src/modules/state'
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
+import { controlLight, getLights } from './actions'
+import State from './state'
 
 const initialState: State = {
   lights: []

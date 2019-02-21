@@ -1,5 +1,5 @@
-import { Light, LightPatch } from 'src/services/hue'
 import { actionCreatorFactory } from 'typescript-fsa'
+import { Light, LightPatch } from '../services/hue'
 
 const actionCreator = actionCreatorFactory()
 

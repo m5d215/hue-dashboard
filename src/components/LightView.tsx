@@ -11,7 +11,7 @@ import Slider, { SliderProps } from '@material-ui/lab/Slider'
 import * as cc from 'color-convert'
 import deepEqual from 'fast-deep-equal'
 import React from 'react'
-import { Light, LightPatch } from 'src/services/hue'
+import { Light, LightPatch } from '../services/hue'
 
 const styles = (theme: Theme) =>
   createStyles({
