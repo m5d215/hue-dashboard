@@ -1,16 +1,16 @@
 import { createStyles, Theme, WithStyles, withStyles } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import Switch, { SwitchProps } from '@material-ui/core/Switch'
+import Switch from '@material-ui/core/Switch'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import Typography from '@material-ui/core/Typography'
-import Slider, { SliderProps } from '@material-ui/lab/Slider'
+import Slider from '@material-ui/lab/Slider'
 import * as cc from 'color-convert'
 import deepEqual from 'fast-deep-equal'
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
 import { Light, LightPatch } from '../services/hue'
 
 const styles = (theme: Theme) =>
@@ -36,104 +36,113 @@ type Props = WithStyles<typeof styles> & {
   onChange: (light: LightPatch) => void
 }
 
-class LightView extends React.Component<Props> {
-  public render(): React.ReactNode {
-    const { classes, light } = this.props
-    return (
-      <Paper square={true}>
-        <div
-          className={classes.color}
-          style={{ background: toRGBString(light.state) }}
-        />
+function LightView(props: Props): JSX.Element {
+  const { classes, light, onChange } = props
 
-        <Grid className={classes.content} container={true} alignItems="center">
-          <Typography className={classes.name} color="default" variant="h6">
-            #{light.id}
-          </Typography>
-          <Switch checked={light.state.on} onChange={this.changeSwitch} />
-        </Grid>
+  const id = useRef(light.id)
 
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell variant="head">
-                <Typography color="inherit" variant="body1">
-                  Hue
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Slider
-                  className={classes.columnContent}
-                  disabled={!light.state.on}
-                  max={65535}
-                  min={0}
-                  step={1}
-                  value={light.state.hue}
-                  onChange={this.changeHue}
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell variant="head">
-                <Typography color="inherit" variant="body1">
-                  Saturation
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Slider
-                  className={classes.columnContent}
-                  disabled={!light.state.on}
-                  max={255}
-                  min={0}
-                  step={1}
-                  value={light.state.saturation}
-                  onChange={this.changeSaturation}
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell variant="head">
-                <Typography color="inherit" variant="body1">
-                  Brightness
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <Slider
-                  className={classes.columnContent}
-                  disabled={!light.state.on}
-                  max={255}
-                  min={0}
-                  step={1}
-                  value={light.state.brightness}
-                  onChange={this.changeBrightness}
-                />
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </Paper>
-    )
-  }
+  const changeSwitch = useCallback(
+    (_: React.ChangeEvent<{}>, on) => {
+      onChange({ id: id.current, state: { on } })
+    },
+    [id, onChange]
+  )
 
-  private changeSwitch: SwitchProps['onChange'] = (_, on) => {
-    const { light, onChange } = this.props
-    onChange({ id: light.id, state: { on } })
-  }
+  const changeHue = useCallback(
+    (_: React.ChangeEvent<{}>, hue: number) => {
+      onChange({ id: id.current, state: { hue } })
+    },
+    [id, onChange]
+  )
 
-  private changeHue: SliderProps['onChange'] = (_, hue) => {
-    const { light, onChange } = this.props
-    onChange({ id: light.id, state: { hue } })
-  }
+  const changeSaturation = useCallback(
+    (_: React.ChangeEvent<{}>, saturation: number) => {
+      onChange({ id: id.current, state: { saturation } })
+    },
+    [id, onChange]
+  )
 
-  private changeSaturation: SliderProps['onChange'] = (_, saturation) => {
-    const { light, onChange } = this.props
-    onChange({ id: light.id, state: { saturation } })
-  }
+  const changeBrightness = useCallback(
+    (_: React.ChangeEvent<{}>, brightness: number) => {
+      onChange({ id: id.current, state: { brightness } })
+    },
+    [id, onChange]
+  )
 
-  private changeBrightness: SliderProps['onChange'] = (_, brightness) => {
-    const { light, onChange } = this.props
-    onChange({ id: light.id, state: { brightness } })
-  }
+  return (
+    <Paper square={true}>
+      <div
+        className={classes.color}
+        style={{ background: toRGBString(light.state) }}
+      />
+
+      <Grid className={classes.content} container={true} alignItems="center">
+        <Typography className={classes.name} color="default" variant="h6">
+          #{light.id}
+        </Typography>
+        <Switch checked={light.state.on} onChange={changeSwitch} />
+      </Grid>
+
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell variant="head">
+              <Typography color="inherit" variant="body1">
+                Hue
+              </Typography>
+            </TableCell>
+            <TableCell>
+              <Slider
+                className={classes.columnContent}
+                disabled={!light.state.on}
+                max={65535}
+                min={0}
+                step={1}
+                value={light.state.hue}
+                onChange={changeHue}
+              />
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell variant="head">
+              <Typography color="inherit" variant="body1">
+                Saturation
+              </Typography>
+            </TableCell>
+            <TableCell>
+              <Slider
+                className={classes.columnContent}
+                disabled={!light.state.on}
+                max={255}
+                min={0}
+                step={1}
+                value={light.state.saturation}
+                onChange={changeSaturation}
+              />
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell variant="head">
+              <Typography color="inherit" variant="body1">
+                Brightness
+              </Typography>
+            </TableCell>
+            <TableCell>
+              <Slider
+                className={classes.columnContent}
+                disabled={!light.state.on}
+                max={255}
+                min={0}
+                step={1}
+                value={light.state.brightness}
+                onChange={changeBrightness}
+              />
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </Paper>
+  )
 }
 
 export default withStyles(styles)(React.memo(LightView, deepEqual))
